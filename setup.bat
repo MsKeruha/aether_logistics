@@ -15,29 +15,31 @@ if %ERRORLEVEL% neq 0 (
 )
 
 echo ==========================================
-echo Aether Logistics Local Setup ^& Run Script (Python 3.11)
+echo Aether Logistics Local Setup ^& Run Script
 echo ==========================================
 
-echo [1/5] Checking dependencies...
+echo [1/5] Detecting dependencies...
 
-:: Install Python 3.11 specifically
+:: 1. Check Python 3.11
 py -3.11 --version >nul 2>nul
 if %ERRORLEVEL% neq 0 (
-    echo Installing Python 3.11 via winget...
+    echo [!] Python 3.11 not found. Attempting to install via winget...
     call winget install -e --id Python.Python.3.11 --silent --accept-package-agreements --accept-source-agreements
 ) else (
-    echo Python 3.11 is already installed.
+    echo [+] Python 3.11 is detected.
 )
 
-:: Install Node.js
-node --version >nul 2>nul
+:: 2. Check Node.js
+node -v >nul 2>nul
 if %ERRORLEVEL% neq 0 (
-    echo Installing Node.js via winget...
+    echo [!] Node.js not found. Attempting to install via winget...
     call winget install -e --id OpenJS.NodeJS.LTS --silent --accept-package-agreements --accept-source-agreements
+) else (
+    echo [+] Node.js is detected.
 )
 
 :: Refresh Path
-set "PATH=%PATH%;C:\Windows"
+set "PATH=%PATH%;C:\Windows\System32;C:\Windows"
 
 echo [2/5] Setting up Backend...
 cd /d "%PROJECT_ROOT%backend"
