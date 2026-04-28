@@ -22,7 +22,7 @@ const Home = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const { showNotification } = useAuth();
-  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+  const API_URL = import.meta.env.VITE_API_URL || '/api';
 
   const fetchOrders = async () => {
     try {
